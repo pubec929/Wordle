@@ -1,2 +1,3 @@
 # Wordle
-A Worlde Clone 
+
+A Worlde Clone build with Vanilla JavaScript
