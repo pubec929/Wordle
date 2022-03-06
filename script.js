@@ -12,9 +12,8 @@ const msOffset = Date.now() - offsetFromDate;
 const dayOffset = msOffset / 1000 / 60 / 60 / 24;
 const targetWord = targetWords[Math.floor(dayOffset)];
 
-console.log(targetWord);
-
 const guessGrid = document.querySelector('[data-guess-grid]');
+const alertContainer = document.querySelector('[data-alert-container]');
 
 startInteraction();
 
@@ -84,8 +83,30 @@ function deleteKey() {
 	delete lastTile.dataset.letter;
 }
 
-function submit() {}
+function submitGuess() {
+	const activeTiles = [...getActiveTiles()];
+	if (activeTiles.length !== WORD_LENGTH) {
+		showAlert('Not enough letters');
+		//shakeTiles(activeTiles); // Not implemented yetf
+		return;
+	}
+}
 
 function getActiveTiles() {
 	return guessGrid.querySelectorAll('[data-state="active"]');
+}
+
+function showAlert(message, duration = 1000) {
+	const alert = document.createElement('div');
+	alert.textContent = message;
+	alert.classList.add('alert');
+	alertContainer.prepend(alert);
+	if (duration === null) return;
+
+	setTimeout(() => {
+		alert.classList.add('hide');
+		alert.addEventListener('transitioned', () => {
+			alert.remove();
+		});
+	}, duration);
 }
