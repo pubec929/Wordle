@@ -1,7 +1,6 @@
 // Fetch data of dictionary.json and targetWords.json
 const resDictionary = await fetch('dictionary.json');
 const dictionary = await resDictionary.json();
-
 const resTargetWords = await fetch('targetWords.json');
 const targetWords = await resTargetWords.json();
 
@@ -39,9 +38,7 @@ function handleMouseClick(e) {
 	if (e.target.matches('[data-enter]')) {
 		submitGuess();
 		return;
-	}
-
-	if (e.target.matches('[data-delete]')) {
+	} else {
 		deleteKey();
 		return;
 	}
@@ -111,7 +108,7 @@ function submitGuess() {
 function flipTile(tile, index, array, guess) {
 	const letter = tile.dataset.letter;
 	const key = keyboard.querySelector(`[data-key="${letter}"i]`);
-	console.log(keyboard);
+
 	setTimeout(() => {
 		tile.classList.add('flip');
 	}, (index * FLIP_ANIMATION_DURATION) / 2);
